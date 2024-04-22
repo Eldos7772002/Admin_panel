@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  project1:
+    build:
+      context: ./admin-panel-crud
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./admin-panel-crud/.env
+    environment:
+      TZ: "Asia/Oral"
+  project2:
+    build:
+      context: ./admin-panel-eureka-server
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+
+    environment:
+      TZ: "Asia/Oral"
+  project3:
+    build:
+      context: ./admin-panel-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8088:8080"
+    env_file:
+      - ./admin-panel-gateway/.env
+    environment:
+      TZ: "Asia/Oral"
+  project4:
+    build:
+      context: ./admin-panel-security
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8080"
+    env_file:
+      - ./admin-panel-security/.env
+    environment:
+      TZ: "Asia/Oral"
