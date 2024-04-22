@@ -1,0 +1,78 @@
+<div class="w-full">
+  <div class="pt-7 pl-7">
+    <a mat-button class="text-blue-700" [routerLink]="['/projects', 'sms-gate']">
+      <mat-icon class="text-blue-700">arrow_back</mat-icon>
+        Назад
+    </a>
+  </div>
+
+  <div class="w-[60%] mx-auto mb-[60px]">
+
+    <div class="mt-4">
+      <h2
+        class="text-center text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+      >
+        PUSH-уведомление
+      </h2>
+    </div>
+    <form
+      class="w-full flex flex-col mt-8 p-8 pb-4 bg-card rounded-2xl shadow overflow-hidden"
+      [formGroup]="noteForm"
+    >
+      <div class="flex flex-col gt-xs:flex-row">
+        <mat-form-field class="flex-auto gt-xs:pr-3">
+          <mat-label>Сообщение</mat-label>
+          <input matInput
+                 placeholder="Введите сообщение"
+                 [(ngModel)]="createNoteModel.message"
+                 formControlName="message" />
+        </mat-form-field>
+
+        <mat-form-field class="flex-auto gt-xs:pr-3">
+          <mat-label>Описание</mat-label>
+          <textarea matInput
+                 placeholder="Введите описание"
+                 [(ngModel)]="createNoteModel.description"
+                 formControlName="description"
+                 class="min-h-40">
+          </textarea>
+        </mat-form-field>
+        
+        <mat-form-field class="flex-auto gt-xs:pr-3">
+          <mat-label>Название</mat-label>
+          <input
+            matInput
+            [(ngModel)]="createNoteModel.title"
+            placeholder="Название"
+            formControlName="title"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="flex-auto gt-xs:pr-3">
+          <mat-label>Код правила</mat-label>
+          <input
+            matInput
+            [(ngModel)]="createNoteModel.rule_code"
+            placeholder="Код правила"
+            formControlName="rule_code"
+          />
+        </mat-form-field>
+
+        <mat-checkbox class="flex-auto gt-xs:pr-3 mb-4" [(ngModel)]="createNoteModel.sent" formControlName="sent">
+          <mat-label>Отправлено</mat-label>
+        </mat-checkbox>
+        
+      </div>
+  
+      <button mat-raised-button
+              class="text-white bg-blue-600"
+              (click)="onSubmit()"
+              [disabled]="!noteForm.valid">
+          <mat-icon>add</mat-icon>
+          Создать правило
+      </button>
+    </form>
+  </div>
+</div>
+
+

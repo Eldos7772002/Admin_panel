@@ -1,0 +1,213 @@
+<div class="flex flex-col flex-auto min-w-0">
+  <!-- Header -->
+  <div class="bg-card">
+    <div class="flex flex-col w-full max-w-screen-xl mx-auto px-6 sm:px-8">
+      <div
+        class="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-8 sm:my-12"
+      >
+        <!-- Avatar and name -->
+        <div class="flex flex-auto items-center min-w-0">
+          <div class="flex flex-col min-w-0 ml-4">
+            <ng-container *transloco="let t">
+              <div
+                class="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate"
+              >
+                Сервис SMS-Gateway
+              </div>
+            </ng-container>
+            <div class="flex items-center">
+              <mat-icon
+                class="icon-size-5"
+                [svgIcon]="'heroicons_solid:bell'"
+              ></mat-icon>
+              <div class="ml-1.5 leading-6 truncate text-secondary">
+                3 сервиса требуют проверки
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex-auto border-t -mt-px pt-2">
+    <div class="w-full max-w-screen-xl mx-auto">
+      <mat-tab-group
+        class="sm:px-2"
+        mat-stretch-tabs="false"
+        [animationDuration]="'0'"
+      >
+        <mat-tab label="Правила">
+          <ng-template matTabContent>
+            <a
+              class="mb-5"
+              mat-flat-button
+              color="primary"
+              [routerLink]="['/projects/sms-gate/create-rule/0']"
+            >
+              <mat-flat-button class="inline-flex items-center gap-x-1">
+                <mat-icon>add</mat-icon>
+                Добавить правило
+              </mat-flat-button>
+            </a>
+
+            <table mat-table [dataSource]="rulesData" class="mat-elevation-z8">
+              <ng-container
+                *ngFor="let column of rulesColumns"
+                [matColumnDef]="column.colName"
+              >
+                <th class="text-center" mat-header-cell *matHeaderCellDef>
+                  {{ column.displayText }}
+                </th>
+                <td class="text-center" mat-cell *matCellDef="let element">
+                  {{ element[column.dataProperty] }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef class="ml-3">Действия</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  class="p-4 flex flex-col gap-y-2"
+                >
+                  <button
+                    mat-flat-button
+                    class="bg-[#5f90fb] text-white"
+                    [routerLink]="
+                      '/projects/sms-gate/create-rule/' + element.id
+                    "
+                  >
+                    <mat-icon>edit</mat-icon>
+                    Редактировать
+                  </button>
+
+                  <button
+                    mat-flat-button
+                    color="warn"
+                    (click)="deleteRule(element.id)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                    Удалить
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedRulesColumns"></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedRulesColumns"
+              ></tr>
+            </table>
+          </ng-template>
+        </mat-tab>
+
+        <mat-tab label="Массовая отправка (Push)">
+          <ng-template matTabContent>
+            <a
+              class="mb-5"
+              mat-flat-button
+              color="primary"
+              [routerLink]="['/projects/sms-gate/create-notification/0']"
+            >
+              <mat-flat-button class="inline-flex items-center gap-x-1">
+                <mat-icon>add</mat-icon>
+                Создать новое уведомление
+              </mat-flat-button>
+            </a>
+
+            <table
+              mat-table
+              [dataSource]="notificationData"
+              class="mat-elevation-z8"
+            >
+              <ng-container
+                *ngFor="let column of notificationColumns"
+                [matColumnDef]="column.colName"
+              >
+                <th mat-header-cell *matHeaderCellDef>
+                  {{ column.displayText }}
+                </th>
+                <td mat-cell *matCellDef="let note">
+                  {{ note[column.dataProperty] }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="noteAction">
+                <th mat-header-cell *matHeaderCellDef class="ml-3">Действия</th>
+                <td
+                  mat-cell
+                  *matCellDef="let note"
+                  class="p-4 flex flex-col gap-y-2"
+                >
+                  <button
+                    mat-flat-button
+                    class="bg-[#5f90fb] text-white"
+                    [routerLink]="
+                      ['/projects/sms-gate/create-notification/', note.id]
+                    "
+                  >
+                    <mat-icon>edit</mat-icon>
+                    Редактировать
+                  </button>
+
+                  <button
+                    mat-flat-button
+                    color="warn"
+                    (click)="deleteNotification(note.id)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                    Удалить
+                  </button>
+                </td>
+              </ng-container>
+              <!-- Define header row -->
+              <tr
+                mat-header-row
+                *matHeaderRowDef="displayedNotificationColumns"
+              ></tr>
+
+              <!-- Define row -->
+              <tr
+                mat-row
+                *matRowDef="let note; columns: displayedNotificationColumns"
+              ></tr></table
+          ></ng-template>
+        </mat-tab>
+
+        <mat-tab label="Выгрузка">
+          <ng-template matTabContent>
+            <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="logsPaginationData" class="mat-elevation-z8">
+              <div *ngFor="let column of logsColumns">
+                <ng-container [matColumnDef]="column.colName">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ column.displayText }}
+                  </th>
+                  <td mat-cell *matCellDef="let log">
+                    {{ log[column.dataProperty] }}
+                  </td>
+                </ng-container>
+              </div>
+
+              <tr mat-header-row *matHeaderRowDef="displayedLogColumns"></tr>
+
+              <tr
+                mat-row
+                *matRowDef="let log; columns: displayedLogColumns"
+              ></tr>
+            </table>
+            <mat-paginator 
+                          [pageSizeOptions]="[5, 10, 20]" 
+                          showFirstLastButtons 
+                          [pageSize]="5"
+                          aria-label="Select page of periodic elements" 
+                          [length]="logsPaginationData.filteredData.length">
+            </mat-paginator>
+          </div>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

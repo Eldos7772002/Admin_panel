@@ -1,0 +1,97 @@
+<div class="w-full">
+  <div class="pt-7 pl-7">
+    <a mat-button class="text-blue-700" [routerLink]="['/projects', 'sms-gate']">
+      <mat-icon class="text-blue-700">arrow_back</mat-icon>
+        Назад
+    </a>
+  </div>
+
+  <div class="w-[60%] mx-auto mb-[60px]">
+
+    <div class="mt-4">
+      <h2
+        class="text-center text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+      >
+        Правило
+      </h2>
+    </div>
+    <form
+      class="w-full flex flex-col mt-8 p-8 pb-4 bg-card rounded-2xl shadow overflow-hidden"
+      [formGroup]="ruleForm"
+    >
+      <div class="flex flex-col gt-xs:flex-row">
+        <mat-form-field class="flex-auto gt-xs:pr-3">
+          <mat-label>Код</mat-label>
+          <input matInput
+                 placeholder="Введите код"
+                 [(ngModel)]="createRuleModel.code"
+                 formControlName="code" />
+        </mat-form-field>
+
+        <mat-form-field class="flex-auto gt-xs:pr-3">
+          <mat-label>Название</mat-label>
+          <input matInput
+                 placeholder="Введите название"
+                 [(ngModel)]="createRuleModel.name"
+                 formControlName="name" />
+        </mat-form-field>
+        
+        <mat-form-field class="flex-auto gt-xs:pr-3">
+          <mat-label>Описание</mat-label>
+          <textarea
+            matInput
+            class="min-h-40"
+            [(ngModel)]="createRuleModel.description"
+            placeholder="Описание"
+            formControlName="description"
+          ></textarea>
+        </mat-form-field>
+
+        <div class="flex flex-col my-3">
+          <mat-label class="mb-3">Тип отправки</mat-label>
+          <mat-checkbox class="flex-auto gt-xs:pr-3"
+                        formControlName="smsOnly"
+                        [(ngModel)]="createRuleModel.smsOnly">
+                        SMS Only (Отправка только СМС)
+            </mat-checkbox>
+          <mat-checkbox class="flex-auto gt-xs:pr-3"
+                        formControlName="smsOn"
+                        [(ngModel)]="createRuleModel.smsOn">
+                        SMS On (Отправка СМС если не отправлено PUSH-уведомление)
+          </mat-checkbox>
+          <div *ngIf="ruleForm.hasError('exclusiveCheckboxes')" class="text-red-500 mt-2">Пожалуйста, выберите либо SMS Only, либо SMS On.</div>
+        </div>
+        <mat-form-field class="flex-auto gt-xs:pr-3">
+          <mat-label>Счетчик</mat-label>
+          <input
+            matInput
+            placeholder="Введите счетчик"
+            type="number"
+            formControlName="count"
+            [(ngModel)]="createRuleModel.count"
+          />
+        </mat-form-field>
+        <mat-form-field class="flex-auto gt-xs:pr-3">
+          <mat-label>Периодичность</mat-label>
+          <input
+            matInput
+            placeholder="Периодичность"
+            type="number"
+            formControlName="periodic"
+            [(ngModel)]="createRuleModel.periodic"
+          />
+        </mat-form-field>
+      </div>
+  
+      <button mat-raised-button
+              class="text-white bg-blue-600"
+              (click)="onSubmit()"
+              [disabled]="!ruleForm.valid">
+          <mat-icon>add</mat-icon>
+          Сохранить
+      </button>
+    </form>
+  </div>
+</div>
+
+

@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      schema: ${DB_SCHEMA}
+  application:
+    name: ${APPLICATION_NAME}
+  jwt:
+    security: ${JWT_SECURITY}
+    securityKey: ${JWT_SECURITY_KEY}
+    expiration: ${JWT_EXPIRATION}
+
+server:
+  port: ${SERVER_PORT}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVICE_URL}
+  instance:
+    prefer-ip-address: false
+
+cloud:
+  discovery:
+    enabled: true

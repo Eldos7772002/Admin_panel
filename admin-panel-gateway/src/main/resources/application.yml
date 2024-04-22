@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: ${APPLICATION_NAME}
+  cloud:
+    gateway:
+      routes:
+        - id: admin-service
+          uri: ${ADMIN_SERVICE_URL}
+          predicates:
+            - Path=${ADMIN_SERVICE_PATH}
+          filters:
+            - StripPrefix=1
+            - JwtAuthenticationFilter
+        - id: auth-service
+          uri: ${AUTH_SERVICE_URL}
+          predicates:
+            - Path=${AUTH_SERVICE_PATH}
+          filters:
+            - StripPrefix=1
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "${CORS_ALLOWED_ORIGINS}"
+            allowedHeaders: "${CORS_ALLOWED_HEADERS}"
+            allowedMethods: "${CORS_ALLOWED_METHODS}"
+    discovery:
+      enabled: true
+  jwt:
+    privateKey: ${JWT_PRIVATE_KEY}
+    expiration: ${JWT_EXPIRATION}
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVICE_URL}
+  instance:
+    prefer-ip-address: true
+server:
+  port: ${SERVER_PORT}
