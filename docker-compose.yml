@@ -16,8 +16,7 @@ services:
       context: ./admin-panel-eureka-server
       dockerfile: Dockerfile
     ports:
-      - "8081:8080"
-
+      - "8761:8761"
     environment:
       TZ: "Asia/Oral"
   project3:
@@ -25,7 +24,7 @@ services:
       context: ./admin-panel-gateway
       dockerfile: Dockerfile
     ports:
-      - "8088:8080"
+      - "8088:8088"
     env_file:
       - ./admin-panel-gateway/.env
     environment:
@@ -35,7 +34,7 @@ services:
       context: ./admin-panel-security
       dockerfile: Dockerfile
     ports:
-      - "8083:8080"
+      - "8083:8083"
     env_file:
       - ./admin-panel-security/.env
     environment:
