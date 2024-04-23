@@ -1,12 +1,22 @@
 version: '3.8'
 
 services:
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=admin
   project1:
     build:
       context: ./admin-panel-crud
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8083:8083"
     env_file:
       - ./admin-panel-crud/.env
     environment:
@@ -34,7 +44,7 @@ services:
       context: ./admin-panel-security
       dockerfile: Dockerfile
     ports:
-      - "8083:8083"
+      - "8080:8080"
     env_file:
       - ./admin-panel-security/.env
     environment:

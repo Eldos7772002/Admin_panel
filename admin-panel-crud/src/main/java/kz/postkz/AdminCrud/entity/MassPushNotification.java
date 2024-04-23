@@ -7,7 +7,7 @@ import java.time.ZonedDateTime;
 
 @Entity
 @Data
-@Table(name = "mass_push_notifications", schema = "smsgate")
+@Table(name = "mass_push_notifications")
 public class MassPushNotification {
 
     @Id

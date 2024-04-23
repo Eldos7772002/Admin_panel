@@ -1,7 +1,6 @@
 package kz.postkz.AdminCrud.controller;
 
 
-import kz.postkz.AdminCrud.dto.NoticePushRuleDTO;
 import kz.postkz.AdminCrud.entity.NoticePushRule;
 import kz.postkz.AdminCrud.services.NoticePushRuleService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,5 @@
 package kz.postkz.AdminCrud.controller;
 
-import kz.postkz.AdminCrud.dto.MassPushNotificationDTO;
 import kz.postkz.AdminCrud.entity.MassPushNotification;
 import kz.postkz.AdminCrud.services.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
