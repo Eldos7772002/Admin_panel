@@ -8,7 +8,6 @@ RUN apt-get update; \
 RUN ln -snf /usr/share/zoneinfo/Asia/Oral /etc/localtime && echo Asia/Oral > /etc/timezone
 
 ARG PROJECT_NAME=AdminSecurity
-COPY settings.xml /root/.m2/settings.xml
 COPY pom.xml pom.xml
 
 RUN ["mvn", "compile", "package","-DskipTests"]
