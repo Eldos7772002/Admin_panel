@@ -81,22 +81,22 @@ export class MainListComponent implements OnInit, OnDestroy {
     link: string;
   }[] = [
     {
-      id: 'sms-gate',
-      title: 'СМС-шлюз',
-      link: 'projects/sms-gate',
-      description: 'Проект СМС-шлюз',
+      id         : 'forum',
+      title      : 'ТРЦ "FORUM"',
+      description: 'Шопинг и развлечения для всей семьи.',
+      link: 'projects/forum',
     },
     {
-      id: 'digital-tenge',
-      title: 'Digital tenge',
-      link: 'projects/digital-tenge',
-      description: 'Проект Digital tenge',
+      id         : 'moskva',
+      title      : 'MOSKVA Metropolitan',
+      link: 'projects/moskva',
+      description: 'Место семейного отдыха. Более 150 бутиков Аллея кафе и ресторанов',
     },
     {
-      id: 'lk-ul',
-      title: 'Личный кабинет для юридических лиц',
-      link: 'projects/lk-ul',
-      description: 'Проект личный кабинет для юридических лиц',
+      id         : 'dostyk-plaza',
+      title      : 'Dostyk Plaza',
+      link: 'projects/dostyk-plaza',
+      description: 'Большой современный торговый центр с магазинами известных брендов, кинотеатром и фуд-кортом.',
     },
   ];
   /**

@@ -14,16 +14,30 @@ export const horizontalNavigation: FuseNavigationItem[] = [
     },
     {
         id      : 'dashboards',
-        title   : 'Проекты',
+        title   : 'Торговые центры',
         type    : 'group',
         icon    : 'heroicons_outline:document',
         children: [
             {
                 id   : 'dashboards.project',
-                title: 'СМС-шлюз',
+                title: 'Forum',
                 type : 'basic',
                 icon : 'heroicons_outline:chat-bubble-bottom-center-text',
-                link : '/projects/sms-gate',
+                link : '/projects/forum',
+            },
+            {
+                id   : 'dashboards.project',
+                title: 'Moskva Metropolian',
+                type : 'basic',
+                icon : 'heroicons_outline:chat-bubble-bottom-center-text',
+                link : '/projects/moskva',
+            },
+            {
+                id   : 'dashboards.project',
+                title: 'Dostyk Plaza',
+                type : 'basic',
+                icon : 'heroicons_outline:chat-bubble-bottom-center-text',
+                link : '/projects/dostyk-plaza',
             },
         ],
     },

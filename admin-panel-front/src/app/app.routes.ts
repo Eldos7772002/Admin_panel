@@ -55,9 +55,9 @@ export const routes: Route[] = [
         children: [
             {path: 'projects', loadChildren: () => import('../app/pages/main/main.routes')},
             {path: 'projects', children: [
-                {path: 'sms-gate', loadChildren: () => import('../app/pages/sms-gate/sms-gate.routes')},
-                {path: 'sms-gate/create-rule/:id', loadChildren: () => import('./pages/sms-gate/create-rule/create-rule.routes')},
-                {path: 'sms-gate/create-notification/:id', loadChildren: () => import('./pages/sms-gate/create-notification/create-notification.routes')}
+                {path: 'forum', loadChildren: () => import('../app/pages/sms-gate/sms-gate.routes')},
+                {path: 'forum/create-rule/:id', loadChildren: () => import('./pages/sms-gate/create-rule/create-rule.routes')},
+                {path: 'forum/create-notification/:id', loadChildren: () => import('./pages/sms-gate/create-notification/create-notification.routes')}
             ]},
             {path: 'profile', loadChildren: () => import('../app/pages/profile/profile.routes')}
         ]
