@@ -41,6 +41,7 @@ public class AuthService {
             ourUsers.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
             ourUsers.setRole(registrationRequest.getRole());
             ourUsers.setName(registrationRequest.getName());
+            ourUsers.setDeviceToken(registrationRequest.getDeviceToken());
             OurUsers ourUserResult = ourUserRepo.save(ourUsers);
             if (ourUserResult.getId()>0) {
                 resp.setOurUsers(ourUserResult);
