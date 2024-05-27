@@ -50,6 +50,15 @@ services:
       - ./admin-panel-security/.env
     environment:
       TZ: "Asia/Oral"
+  websocket:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+
+    environment:
+      TZ: "Asia/Oral"
   zookeeper:
     image: confluentinc/cp-zookeeper:7.4.4
     environment:
