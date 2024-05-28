@@ -56,7 +56,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8084:8084"
-
     environment:
       TZ: "Asia/Oral"
   zookeeper:
