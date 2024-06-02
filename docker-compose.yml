@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-
   postgres:
     image: postgres:14-alpine
     ports:
@@ -12,6 +11,11 @@ services:
       - POSTGRES_PASSWORD=123
       - POSTGRES_USER=admin
       - POSTGRES_DB=admin
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+
   project1:
     build:
       context: ./admin-panel-crud
@@ -22,6 +26,11 @@ services:
       - ./admin-panel-crud/.env
     environment:
       TZ: "Asia/Oral"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+
   project2:
     build:
       context: ./admin-panel-eureka-server
@@ -30,6 +39,11 @@ services:
       - "8761:8761"
     environment:
       TZ: "Asia/Oral"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+
   project3:
     build:
       context: ./admin-panel-gateway
@@ -40,6 +54,11 @@ services:
       - ./admin-panel-gateway/.env
     environment:
       TZ: "Asia/Oral"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+
   project4:
     build:
       context: ./admin-panel-security
@@ -50,6 +69,11 @@ services:
       - ./admin-panel-security/.env
     environment:
       TZ: "Asia/Oral"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+
   websocket:
     build:
       context: ./app
@@ -60,6 +84,11 @@ services:
       - ./app/.env
     environment:
       TZ: "Asia/Oral"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+
   redis:
     image: redis:6.0.7
     container_name: redis
@@ -68,6 +97,10 @@ services:
       - redis_volume_data:/data
     ports:
       - "6379:6379"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
 
   redis_insight:
     image: redislabs/redisinsight:1.14.0
@@ -77,6 +110,10 @@ services:
       - "8009:8009"
     volumes:
       - redis_insight_volume_data:/db
+    deploy:
+      resources:
+        limits:
+          memory: 500M
 
 volumes:
   redis_volume_data:
