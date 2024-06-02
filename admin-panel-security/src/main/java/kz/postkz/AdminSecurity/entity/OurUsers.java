@@ -21,6 +21,7 @@ public class OurUsers implements UserDetails {
     private String name;
     private String password;
     private String deviceToken;
+    private String expoToken;
     private String role;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

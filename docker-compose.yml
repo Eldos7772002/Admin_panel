@@ -35,7 +35,7 @@ services:
       context: ./admin-panel-gateway
       dockerfile: Dockerfile
     ports:
-      - "8088:8088"
+      - "25565:25565"
     env_file:
       - ./admin-panel-gateway/.env
     environment:
@@ -56,26 +56,28 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8084:8084"
+    env_file:
+      - ./app/.env
     environment:
       TZ: "Asia/Oral"
-  zookeeper:
-    image: confluentinc/cp-zookeeper:7.4.4
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
+  redis:
+    image: redis:6.0.7
+    container_name: redis
+    restart: always
+    volumes:
+      - redis_volume_data:/data
     ports:
-      - 22181:2181
+      - "6379:6379"
 
-  kafka:
-    image: confluentinc/cp-kafka:7.4.4
-    depends_on:
-      - zookeeper
+  redis_insight:
+    image: redislabs/redisinsight:1.14.0
+    container_name: redis_insight
+    restart: always
     ports:
-      - 29092:29092
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      - "8009:8009"
+    volumes:
+      - redis_insight_volume_data:/db
+
+volumes:
+  redis_volume_data:
+  redis_insight_volume_data:

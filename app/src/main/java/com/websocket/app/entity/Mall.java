@@ -1,11 +1,10 @@
-package kz.postkz.AdminCrud.entity;
-
+package com.websocket.app.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "malls")
-@Data
 public class Mall {
 
     @Id
@@ -27,7 +26,8 @@ public class Mall {
     @Column(name = "longitude2")
     private Double longitude2;
 
-    @Column(name = "defaultNotification")
-    private Double defaultNotification;
+    @Column(name = "defaultnotification")
+    private String defaultNotification;
+
 
 }

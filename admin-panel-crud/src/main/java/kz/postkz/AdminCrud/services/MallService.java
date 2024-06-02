@@ -31,8 +31,10 @@ public class MallService {
         if (existingMallOptional.isPresent()) {
             Mall existingMall = existingMallOptional.get();
             existingMall.setName(updatedMall.getName());
-            existingMall.setLatitude(updatedMall.getLatitude());
-            existingMall.setLongitude(updatedMall.getLongitude());
+            existingMall.setLatitude1(updatedMall.getLatitude1());
+            existingMall.setLongitude1(updatedMall.getLatitude2());
+            existingMall.setLatitude2(updatedMall.getLatitude2());
+            existingMall.setLongitude2(updatedMall.getLongitude2());
             return mallRepository.save(existingMall);
         }
         return null;
