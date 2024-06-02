@@ -73,7 +73,20 @@ services:
       resources:
         limits:
           memory: 500M
-
+  project5:
+    build:
+      context: ./notification-proc
+      dockerfile: Dockerfile
+    ports:
+      - "8086:8086"
+    env_file:
+      - ./notification-proc/.env
+    environment:
+      TZ: "Asia/Oral"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
   websocket:
     build:
       context: ./app

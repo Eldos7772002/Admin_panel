@@ -23,6 +23,12 @@ spring:
             - Path=${AUTH_SERVICE_PATH}
           filters:
             - StripPrefix=1
+        - id: notification-service
+          uri: ${NOTIFICATION_SERVICE_URL}
+          predicates:
+            - Path=${NOTIFICATION_SERVICE_PATH}
+          filters:
+            - StripPrefix=1    -
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
       globalcors:

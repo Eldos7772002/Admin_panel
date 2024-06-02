@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: ${APPLICATION_NAME}
+
+logging:
+  level:
+    org.apache.kafka: off
+    org.springframework.kafka.listener.KafkaMessageListenerContainer: ERROR
+eureka:
+  client:
+    service-url:
+      defaultZone : ${EUREKA_SERVER_URL}
+feign:
+  url: ${FEIGN}
+  authToken: ${AUTH_TOKEN}
+server:
+  port: 8086
