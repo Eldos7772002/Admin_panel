@@ -25,7 +25,7 @@ public class DataService {
         this.outletRepository = outletRepository;
     }
 
-    @Scheduled(fixedRate = 100000)
+    @Scheduled(fixedRate = 1000000)
     public void updateData() {
         int redisPort = 6379;
         String redisHost = "localhost";

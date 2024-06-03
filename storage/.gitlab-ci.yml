@@ -1,0 +1,89 @@
+variables:
+  GIT_DEPTH: 1
+  GROUP_NAME: lkul
+  PROJECT_VCS_REF: $CI_COMMIT_SHORT_SHA
+  PROJECT_BRANCH: $CI_COMMIT_REF_NAME
+  PROJECT_NAME: $CI_PROJECT_NAME
+  NEXUS_URL: nexus.post.kz:8200
+  TARGET_PROFILE: prod
+  PROJECT_SOURCE_URL: $CI_PROJECT_URL
+
+stages:
+  - dockerize-dev
+  - deploy-stage
+  - dev-yeldos
+  - deploy-prod
+
+dockerize-dev:
+  when: on_success
+  allow_failure: false
+  stage: dockerize-dev
+
+  script:
+    - hostname
+    - echo $CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID
+    - docker build $ADDITIONAL_BUILD_ARG -t nexus.post.kz:8200/$CI_PROJECT_NAMESPACE/$(echo "$CI_PROJECT_NAME" | tr 'A-Z' 'a-z'):$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID .
+    #--target $TARGET_PROFILE .
+    - docker push nexus.post.kz:8200/$CI_PROJECT_NAMESPACE/$(echo "$CI_PROJECT_NAME" | tr 'A-Z' 'a-z'):$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID
+    - docker rmi nexus.post.kz:8200/$CI_PROJECT_NAMESPACE/$(echo "$CI_PROJECT_NAME" | tr 'A-Z' 'a-z'):$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID
+  
+
+dev:
+  when: on_success
+  allow_failure: false
+  image: nexus.post.kz:8200/helm-cli:3.4.1-gettext
+  stage: deploy-stage
+  script:
+    - export NAMESPACE=default
+    - mkdir -p .kube
+    - echo ${KUBE_CONFIG} | base64 -d > .kube/config
+    - export KUBECONFIG=.kube/config
+    - export VALUES_FILE=.helm/values-stage.yaml
+    - export HELM_PATH=.helm/
+    - cp $VALUES_FILE /tmp/input.yml
+    - envsubst < /tmp/input.yml > ${VALUES_FILE}
+    - helm template -f ${VALUES_FILE} ${HELM_PATH}
+    - helm upgrade --set image.tag=$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID --set SPRING_PROFILE=stage --install cabinet-for-legal-user-storage .helm/ -f .helm/values-stage.yaml --namespace $NAMESPACE --create-namespace
+  only:
+    - develop
+
+dev-yeldos:
+  when: on_success
+  allow_failure: false
+  image: nexus.post.kz:8200/helm-cli:3.4.1-gettext
+  stage: dev-yeldos
+  script:
+    - export NAMESPACE=default
+    - mkdir -p .kube
+    - echo ${KUBE_CONFIG} | base64 -d > .kube/config
+    - export KUBECONFIG=.kube/config
+    - export VALUES_FILE=.helm/values-stage.yaml
+    - export HELM_PATH=.helm/
+    - cp $VALUES_FILE /tmp/input.yml
+    - envsubst < /tmp/input.yml > ${VALUES_FILE}
+    - helm template -f ${VALUES_FILE} ${HELM_PATH}
+    - helm upgrade --set image.tag=$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID --set SPRING_PROFILE=stage --install cabinet-for-legal-user-storage .helm/ -f .helm/values-stage.yaml --namespace $NAMESPACE --create-namespace
+  only:
+    - dev-yeldos
+
+prod-deploy:
+  when: manual
+  allow_failure: false
+  image: nexus.post.kz:8200/helm-cli:3.4.1-gettext
+  stage: deploy-prod
+  script:
+    - export NAMESPACE=default
+    - mkdir -p .kube
+    - echo ${KUBE_CONFIG_PROD} | base64 -d > .kube/config
+    - export KUBECONFIG=.kube/config
+    - export VALUES_FILE=.helm/values-prod.yaml
+    - export HELM_PATH=.helm/
+    - cp $VALUES_FILE /tmp/input.yml
+    - envsubst < /tmp/input.yml > ${VALUES_FILE}
+    - helm template -f ${VALUES_FILE} ${HELM_PATH}
+    - helm upgrade --set image.tag=$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID --set SPRING_PROFILE=prod --install cabinet-for-legal-user-storage .helm/ -f .helm/values-prod.yaml --namespace $NAMESPACE --create-namespace
+  only:
+    - prod
+
+
+

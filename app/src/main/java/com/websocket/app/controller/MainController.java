@@ -1,4 +1,4 @@
-package com.websocket.app;
+package com.websocket.app.controller;
 
 import com.websocket.app.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,7 @@ import java.util.Map;
 @RestController
 @Slf4j
 @RequestMapping("/api/v2")
-public class Test {
+public class MainController{
     @Autowired
     private RedisService redisService;
 

@@ -28,7 +28,7 @@ spring:
           predicates:
             - Path=${NOTIFICATION_SERVICE_PATH}
           filters:
-            - StripPrefix=1    -
+            - StripPrefix=1
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
       globalcors:

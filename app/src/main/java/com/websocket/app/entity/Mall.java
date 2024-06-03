@@ -29,5 +29,4 @@ public class Mall {
     @Column(name = "defaultnotification")
     private String defaultNotification;
 
-
 }

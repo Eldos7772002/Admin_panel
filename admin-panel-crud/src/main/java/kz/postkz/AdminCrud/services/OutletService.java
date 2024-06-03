@@ -30,8 +30,10 @@ public class OutletService {
         if (existingOutletOptional.isPresent()) {
             Outlet existingOutlet = existingOutletOptional.get();
             existingOutlet.setMall(updatedOutlet.getMall());
-            existingOutlet.setLatitude(updatedOutlet.getLatitude());
-            existingOutlet.setLongitude(updatedOutlet.getLongitude());
+            existingOutlet.setLongitude1(updatedOutlet.getLongitude1());
+            existingOutlet.setLongitude2(updatedOutlet.getLongitude2());
+            existingOutlet.setLatitude1(updatedOutlet.getLatitude1());
+            existingOutlet.setLatitude2(updatedOutlet.getLatitude2());
             existingOutlet.setCategory(updatedOutlet.getCategory());
             existingOutlet.setName(updatedOutlet.getName());
             return outletRepository.save(existingOutlet);

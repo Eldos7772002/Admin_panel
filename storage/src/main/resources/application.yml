@@ -1,0 +1,53 @@
+server:
+  port: 8080
+  servlet:
+    context-path: ${SERVER.SERVLET.CONTEXTPATH:/cabinet/dp-core-storage}
+
+
+spring:
+  datasource-master:
+    driverClassName: org.postgresql.Driver
+    jdbcUrl: jdbc:postgresql://${APP.DB.HOST:localhost}:${APP.DB.PORT:5432}/${APP.DB.NAME:admin}
+    username: ${APP.DB.USER:admin}
+    password: ${APP.DB.PASSWORD:123}
+    platform: postgresql
+    maximum-pool-size: 5
+    pool-name: CORE-FILES-HP
+    idle-timeout: 60000
+    minimum-idle: 5
+    jpa:
+      properties:
+        hibernate.default_schema: ${APP.DB.SCHEMA:core_files}
+        hibernate.jdbc.batch_size: 50
+        hibernate.generate_statistics: false
+        hibernate.show_sql: ${SHOW_SQL:false}
+
+  flyway:
+    table: flyway_schema_history
+    url: ${spring.datasource-master.jdbcUrl}
+    user: ${spring.datasource-master.username}
+    password: ${spring.datasource-master.password}
+    migrate-at-start: true
+    baseline-on-migrate: true
+    defaultSchema: ${APP.DB.SCHEMA:core_files}
+
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+minio:
+  link: ${MINIO_LINK:http://localhost:9000}
+  accessKey: ${MINIO_ACCESS_KEY:wdjIj3Vy3wEIG7ytS6Pf}
+  secretKey: ${MINIO_SECRET_KEY:DMVQLdEEgpsZhM9bsvyqQqVXCaigGuZArDKhISFx}
+  bucket: ${MINIO_CABINET:cabinet}
+
+api:
+  download: ${DOWNLOAD:/cabinet/dp-core-storage/api/v1/files/download/}
+  download-base64: ${DOWNLAOD_BASE64:/cabinet/dp-core-storage/api/v1/files/download-base64/}
+
