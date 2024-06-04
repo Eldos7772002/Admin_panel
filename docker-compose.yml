@@ -63,7 +63,7 @@ services:
       context: ./admin-panel-gateway
       dockerfile: Dockerfile
     ports:
-      - "25565:25565"
+      - "8088:8088"
     env_file:
       - ./admin-panel-gateway/.env
     environment:
