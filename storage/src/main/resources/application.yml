@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8082
   servlet:
     context-path: ${SERVER.SERVLET.CONTEXTPATH:/cabinet/dp-core-storage}
 
@@ -7,7 +7,7 @@ server:
 spring:
   datasource-master:
     driverClassName: org.postgresql.Driver
-    jdbcUrl: jdbc:postgresql://${APP.DB.HOST:localhost}:${APP.DB.PORT:5432}/${APP.DB.NAME:admin}
+    jdbcUrl: jdbc:postgresql://${APP.DB.HOST:postgres}:${APP.DB.PORT:5432}/${APP.DB.NAME:admin}
     username: ${APP.DB.USER:admin}
     password: ${APP.DB.PASSWORD:123}
     platform: postgresql
@@ -42,7 +42,7 @@ springdoc:
     path: /swagger-ui.html
 
 minio:
-  link: ${MINIO_LINK:http://localhost:9000}
+  link: ${MINIO_LINK:http://minio:9000}
   accessKey: ${MINIO_ACCESS_KEY:wdjIj3Vy3wEIG7ytS6Pf}
   secretKey: ${MINIO_SECRET_KEY:DMVQLdEEgpsZhM9bsvyqQqVXCaigGuZArDKhISFx}
   bucket: ${MINIO_CABINET:cabinet}

@@ -1,20 +1,33 @@
-FROM nexus.post.kz:8200/docker-images/jdk21-maven-net-tools:latest as build
+
+FROM openjdk:21-jdk-slim as build
 WORKDIR /app
 COPY . /app
+ENV MAVEN_VERSION 3.8.1
+RUN apt-get update; \
+    apt-get install -y maven wget;
+RUN ln -snf /usr/share/zoneinfo/Asia/Oral /etc/localtime && echo Asia/Oral > /etc/timezone
+
 ARG PROJECT_NAME=Storage
-COPY settings.xml /root/.m2/settings.xml
 COPY pom.xml pom.xml
-RUN ["mvn", "compile", "package", "-DskipTests"]
+
+RUN ["mvn", "compile", "package","-DskipTests"]
+
 RUN ls -ls ./*
 
-FROM nexus.post.kz:8200/docker-images/jdk21-slim:latest  as prod
+FROM openjdk:21-jdk-slim
+RUN apt-get update; \
+    apt-get install -y curl wget;
 WORKDIR /app
 RUN groupadd -r nonroot && useradd -r -g nonroot nonroot
-COPY --from=build /app/target/*.jar app.jar
-RUN chown -R nonroot:nonroot /app && \
-    chmod 755 /app && \
-    chmod 644 /app/*.jar
-RUN ln -snf /usr/share/zoneinfo/Asia/Almaty /etc/localtime && echo Asia/Almaty > /etc/timezone
+
+ARG PROJECT_NAME=Storage
+RUN chown -R nonroot:nonroot /app
+COPY --from=build  /app/target/*.jar app.jar
+RUN chmod 755 /app
+RUN chmod 644 /app/*.jar
+RUN ln -snf /usr/share/zoneinfo/Asia/Oral /etc/localtime && echo Asia/Oral > /etc/timezone
+
 USER nonroot
+
 EXPOSE 8080
-ENTRYPOINT ["java", "-Duser.timezone=Asia/Almaty", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Duser.timezone=Asia/Oral", "-jar", "app.jar"]

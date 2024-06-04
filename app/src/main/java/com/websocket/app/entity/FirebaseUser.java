@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "firebaseUser")
+@Table(name = "firebase_user")
 public class FirebaseUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

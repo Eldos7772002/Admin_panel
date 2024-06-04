@@ -101,6 +101,19 @@ services:
       resources:
         limits:
           memory: 500M
+  storage:
+    build:
+      context: ./storage
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+
+    environment:
+      TZ: "Asia/Oral"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
   websocket:
     build:
       context: ./app
