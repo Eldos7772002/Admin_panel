@@ -28,7 +28,7 @@ public class DataService {
     @Scheduled(fixedRate = 1000000)
     public void updateData() {
         int redisPort = 6379;
-        String redisHost = "localhost";
+        String redisHost = "redis";
         try (Jedis jedis = new Jedis(redisHost, redisPort)) {
             List<Mall> mallResults = mallRepository.findAll();
             List<Outlet> outletResults = outletRepository.findAll();
