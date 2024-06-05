@@ -2,6 +2,8 @@ package com.websocket.app.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @Table(name = "malls")
@@ -28,5 +30,6 @@ public class Mall {
 
     @Column(name = "defaultnotification")
     private String defaultNotification;
-
+    @Column(name = "image_url")
+    private String imageUrl;
 }

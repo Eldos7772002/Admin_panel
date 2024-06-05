@@ -45,7 +45,7 @@ public class DataService {
                 mallData.put("latitude2", String.valueOf(mall.getLatitude2()));
                 mallData.put("longitude2", String.valueOf(mall.getLongitude2()));
                 mallData.put("defaultNotification", String.valueOf(mall.getDefaultNotification()));
-
+                mallData.put("imageUrl", String.valueOf(mall.getImageUrl()));
                 jedis.hset(key, mallData);
                 int ttl = 3600; // Время жизни в секундах (1 час)
                 jedis.expire(key, ttl); // Установить TTL
@@ -62,8 +62,8 @@ public class DataService {
                 outletData.put("longitude1", String.valueOf(outlet.getLongitude1()));
                 outletData.put("latitude2", String.valueOf(outlet.getLatitude2()));
                 outletData.put("longitude2", String.valueOf(outlet.getLongitude2()));
-                outletData.put("defaultNotification", "Добро пожаловать в бутик " + outlet.getName());
-
+                outletData.put("defaultNotification", String.valueOf(outlet.getDefaultNotification()));
+                outletData.put("imageUrl", String.valueOf(outlet.getImageUrl()));
                 jedis.hset(key, outletData);
                 int ttl = 3600; // Время жизни в секундах (1 час)
                 jedis.expire(key, ttl); // Установить TTL

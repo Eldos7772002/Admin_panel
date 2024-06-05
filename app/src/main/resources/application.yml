@@ -17,12 +17,10 @@ eureka:
   client:
     service-url:
       defaultZone: ${EUREKA_SERVICE_URL}
-
 server:
   port: 8084
   servlet:
     context-path: ${SERVER_CONTEXT_PATH}
-
 redis:
   host: redis
   port: 6379

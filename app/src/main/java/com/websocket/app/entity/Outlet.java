@@ -10,6 +10,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "outlets")
 @Data
@@ -17,7 +19,6 @@ public class Outlet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
     @JoinColumn(name = "mall_id", referencedColumnName = "id")
     private Mall mall;
@@ -39,4 +40,10 @@ public class Outlet {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "default_notification")
+    private String defaultNotification;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 }

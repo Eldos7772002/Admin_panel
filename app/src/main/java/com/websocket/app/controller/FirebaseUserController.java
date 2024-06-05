@@ -1,8 +1,10 @@
 package com.websocket.app.controller;
 
+import com.websocket.app.entity.Balance;
 import com.websocket.app.entity.FirebaseUser;
 import com.websocket.app.service.FirebaseUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,5 +62,36 @@ public class FirebaseUserController {
     public ResponseEntity<Void> deleteFirebaseUser(@PathVariable Long id) {
         firebaseUserService.deleteFirebaseUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/balance")
+    public ResponseEntity<Balance> getBalanceForFirebaseUser(@PathVariable Long id) {
+        Optional<Balance> balance = firebaseUserService.findBalanceById(id);
+        return balance.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/{id}/balance")
+    public ResponseEntity<Balance> createBalanceForFirebaseUser(@PathVariable Long id, @RequestBody Balance balance) {
+        balance.setId(id); // Привязываем баланс к пользователю
+        Balance savedBalance = firebaseUserService.saveBalance(balance);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedBalance);
+    }
+
+    @DeleteMapping("/{id}/balance")
+    public ResponseEntity<Void> deleteBalanceForFirebaseUser(@PathVariable Long id) {
+        firebaseUserService.deleteBalance(id);
+        return ResponseEntity.noContent().build();
+    }
+    @PostMapping("/{id}/increase-balance")
+    public ResponseEntity<Void> increaseBalance(@PathVariable Long id) {
+        firebaseUserService.increaseBalance(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{id}/decrease-balance")
+    public ResponseEntity<Void> decreaseBalance(@PathVariable Long id, @RequestParam double amount) {
+        firebaseUserService.decreaseBalance(id, amount);
+        return ResponseEntity.ok().build();
     }
 }

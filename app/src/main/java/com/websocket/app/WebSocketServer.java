@@ -82,10 +82,6 @@ public class WebSocketServer extends TextWebSocketHandler {
             log.info("Notification for boutique not sent, user already notified within the last hour or not in a boutique");
         }
     }
-
-
-
-
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         log.info("Соединение закрыто: {}", session.getId());
