@@ -107,6 +107,7 @@ public class FirebaseUserServiceImpl implements FirebaseUserService {
     public void decreaseBalance(Long userId, double amount) {
         Optional<Balance> balanceOptional = balanceRepository.findById(userId);
         if (balanceOptional.isPresent()) {
+
             Balance balance = balanceOptional.get();
             double currentAmount = Double.parseDouble(balance.getAmount());
             if (currentAmount >= amount) {

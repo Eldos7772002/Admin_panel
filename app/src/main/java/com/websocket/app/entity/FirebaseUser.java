@@ -14,7 +14,8 @@ public class FirebaseUser {
     private String name;
     private String expoToken;
 
-    @OneToOne(mappedBy = "firebaseUser", cascade = CascadeType.ALL)
-    private Balance balance; // убедитесь, что это свойство существует
+    @OneToOne
+    @JoinColumn(name = "balance_id")
+    private Balance balance;
 }
 

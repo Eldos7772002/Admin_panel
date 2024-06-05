@@ -5,6 +5,7 @@ import com.websocket.app.entity.Outlet;
 import com.websocket.app.repository.MallRepository;
 import com.websocket.app.repository.OutletRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
@@ -19,7 +20,10 @@ public class DataService {
 
     private final MallRepository mallRepository;
     private final OutletRepository outletRepository;
-
+    @Value("${redis.host}")
+    private String redisHost;
+    @Value("${redis.port}")
+    private int redisPort;
     public DataService(MallRepository mallRepository, OutletRepository outletRepository) {
         this.mallRepository = mallRepository;
         this.outletRepository = outletRepository;
@@ -27,8 +31,6 @@ public class DataService {
 
     @Scheduled(fixedRate = 1000000)
     public void updateData() {
-        int redisPort = 6379;
-        String redisHost = "redis";
         try (Jedis jedis = new Jedis(redisHost, redisPort)) {
             List<Mall> mallResults = mallRepository.findAll();
             List<Outlet> outletResults = outletRepository.findAll();
