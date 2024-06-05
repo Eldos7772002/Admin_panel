@@ -21,8 +21,21 @@ public class FirebaseUserServiceImpl implements FirebaseUserService {
 
     @Override
     public FirebaseUser saveFirebaseUser(FirebaseUser feignUser) {
+        // Проверяем, существует ли объект Balance
+        if (feignUser.getBalance() == null || feignUser.getBalance().getId() == null) {
+            // Создаем новый объект Balance
+            Balance balance = new Balance();
+            balance.setAmount("0"); // Устанавливаем начальное значение суммы
+            // Сохраняем объект Balance в базе данных или используем какой-то другой метод для создания
+            balance = balanceRepository.saveAndFlush(balance);
+            // Устанавливаем объект Balance в объект FirebaseUser
+            feignUser.setBalance(balance);
+        }
+
+        // Сохраняем объект FirebaseUser
         return feignUserRepository.save(feignUser);
     }
+
 
     @Override
     public List<FirebaseUser> getAllFirebaseUsers() {

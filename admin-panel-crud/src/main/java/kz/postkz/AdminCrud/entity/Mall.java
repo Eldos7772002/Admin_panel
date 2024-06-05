@@ -2,6 +2,7 @@ package kz.postkz.AdminCrud.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 
 @Data
 @Entity
@@ -29,5 +30,6 @@ public class Mall {
 
     @Column(name = "defaultnotification")
     private String defaultNotification;
+
 
 }

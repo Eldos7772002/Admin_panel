@@ -1,5 +1,6 @@
 package com.websocket.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 @Entity
@@ -16,6 +17,8 @@ public class FirebaseUser {
 
     @OneToOne
     @JoinColumn(name = "balance_id")
+    @JsonIgnore // Игнорировать поле balance при сериализации
     private Balance balance;
+
 }
 
