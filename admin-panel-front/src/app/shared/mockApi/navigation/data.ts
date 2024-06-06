@@ -7,10 +7,39 @@ export const futuristicNavigation: FuseNavigationItem[] = [];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
         id      : 'dashboards',
-        title   : 'Панель управления',
+        title   : 'Торговые центры',
         type    : 'basic',
         icon    : 'heroicons_outline:view-columns',
         link: '/projects'
+    },
+    {
+      id      : 'outlets',
+      title   : 'Бутики',
+      type    : 'basic',
+      icon    : 'heroicons_outline:view-columns',
+      link: '/outlet/list'
+    },
+    {
+      id      : 'dashboards',
+      title   : 'Редактирование Контента',
+      type    : 'group',
+      icon    : 'heroicons_outline:adjustments-horizontal',
+      children: [
+        {
+          id   : 'dashboard',
+          title: 'Создание Торгового центра',
+          type : 'basic',
+          icon : 'heroicons_outline:chat-bubble-bottom-center-text',
+          link : '/dashboard',
+        },
+        {
+          id   : 'outlet',
+          title: 'Создание бутика',
+          type : 'basic',
+          icon : 'heroicons_outline:chat-bubble-bottom-center-text',
+          link : '/outlet',
+        },
+      ],
     },
     {
         id      : 'dashboards',

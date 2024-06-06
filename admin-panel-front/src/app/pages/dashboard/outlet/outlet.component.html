@@ -1,0 +1,41 @@
+<!-- outlet.component.html -->
+
+<form [formGroup]="outletForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="mallId">Mall ID</label>
+    <input id="mallId" formControlName="mallId" type="number">
+  </div>
+  <div>
+    <label for="latitude1">Latitude 1</label>
+    <input id="latitude1" formControlName="latitude1" type="text">
+  </div>
+  <div>
+    <label for="longitude1">Longitude 1</label>
+    <input id="longitude1" formControlName="longitude1" type="text">
+  </div>
+  <div>
+    <label for="latitude2">Latitude 2</label>
+    <input id="latitude2" formControlName="latitude2" type="text">
+  </div>
+  <div>
+    <label for="longitude2">Longitude 2</label>
+    <input id="longitude2" formControlName="longitude2" type="text">
+  </div>
+  <div>
+    <label for="category">Category</label>
+    <input id="category" formControlName="category" type="text">
+  </div>
+  <div>
+    <label for="name">Name</label>
+    <input id="name" formControlName="name" type="text">
+  </div>
+  <div>
+    <label for="defaultNotification">Default Notification</label>
+    <input id="defaultNotification" formControlName="defaultNotification" type="text">
+  </div>
+  <div>
+    <label for="imageUrl">Image URL</label>
+    <input id="imageUrl" type="file" (change)="onFileSelected($event)">
+  </div>
+  <button type="submit">Create Outlet</button>
+</form>

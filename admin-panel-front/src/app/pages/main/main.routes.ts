@@ -10,6 +10,7 @@ import { MainService } from '../../core/services/main.service';
 import { MainListComponent } from './list/list.component';
 import { catchError, throwError } from 'rxjs';
 import { SmsGateComponent } from '../sms-gate/sms-gate.component';
+import {MallsService} from "../../core/services/mall.service";
 
 export default [
   {
@@ -24,7 +25,7 @@ export default [
         pathMatch: 'full',
         component: MainListComponent,
         resolve: {
-          courses: () => inject(MainService).getCourses(),
+          malls: () => inject(MallsService).getMalls(),
         },
       },
     ],

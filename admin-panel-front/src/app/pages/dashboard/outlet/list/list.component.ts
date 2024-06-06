@@ -28,13 +28,12 @@ import {
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FuseFindByKeyPipe } from 'app/shared/helpers/find-by-key.pipe';
-import { MainService } from '../../../core/services/main.service';
-import {Category, Course, IResultProps, Mall} from '../../../core/models/main.model';
 import {BehaviorSubject, catchError, combineLatest, Observable, Subject, takeUntil} from 'rxjs';
-import {MallsService} from "../../../core/services/mall.service";
+import {Outlet} from "../../../../core/models/outlet.model";
+import {OutletsService} from "../../../../core/services/outlet.service";
 
 @Component({
-  selector: 'main-list',
+  selector: 'outlet-list',
   templateUrl: './list.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -59,9 +58,9 @@ import {MallsService} from "../../../core/services/mall.service";
     I18nPluralPipe,
   ],
 })
-export class MainListComponent implements OnInit, OnDestroy {
+export class OutletListComponent implements OnInit, OnDestroy {
 
-  malls: Mall[];
+  outlets: Outlet[];
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
   /**
@@ -71,7 +70,7 @@ export class MainListComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private _changeDetectorRef: ChangeDetectorRef,
     private _router: Router,
-    private _mallService: MallsService,
+    private _outletsService: OutletsService,
   ) {}
 
   // -----------------------------------------------------------------------------------------------------
@@ -82,8 +81,8 @@ export class MainListComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
-    this._mallService.getMalls().subscribe(
-      value => {this.malls = value; this._changeDetectorRef.detectChanges();}
+    this._outletsService.getOutlets().subscribe(
+      value => {this.outlets = value; this._changeDetectorRef.detectChanges();}
       );
     // this._testService.getAllInformation()
     // .pipe(takeUntil(this._unsubscribeAll))

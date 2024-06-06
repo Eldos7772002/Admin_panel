@@ -1,9 +1,9 @@
 {
   "/gateway/*": {
-    "target": "http://172.30.223.69:8088",
+    "target": "http://localhost:8088",
     "secure": false,
     "changeOrigin": false,
     "logLevel": "debug"
   }
 }
-  
+

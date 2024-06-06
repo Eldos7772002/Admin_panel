@@ -20,7 +20,7 @@ export class AuthService
             localStorage.setItem('accessToken', token);
         }
     }
-    
+
     get accessToken(): string
     {
         if (typeof localStorage !== 'undefined') {
@@ -80,7 +80,7 @@ export class AuthService
         })
         );
     }
-  
+
 
     /**
      * Sign in using the access token

@@ -1,8 +1,16 @@
-export interface Category
+export interface Mall
 {
     id?: string;
-    title?: string;
-    slug?: string;
+    name?: string;
+    defaultNotification?: string
+    imageUrl?: string;
+}
+
+export interface Category
+{
+  id?: string;
+  title?: string;
+  slug?: string;
 }
 
 export interface Course

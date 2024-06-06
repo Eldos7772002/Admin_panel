@@ -1,0 +1,47 @@
+<!-- mall-form.component.html -->
+
+<form (ngSubmit)="createMall()" class="mall-form">
+  <div class="form-group">
+    <label for="name" class="form-label">Store Name:</label>
+    <input type="text" id="name" name="name" class="form-control" [(ngModel)]="mallName" required>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="latitude1" class="form-label">Latitude 1:</label>
+        <input type="number" id="latitude1" name="latitude1" class="form-control" [(ngModel)]="latitude1" required>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="longitude1" class="form-label">Longitude 1:</label>
+        <input type="number" id="longitude1" name="longitude1" class="form-control" [(ngModel)]="longitude1" required>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="latitude2" class="form-label">Latitude 2:</label>
+        <input type="number" id="latitude2" name="latitude2" class="form-control" [(ngModel)]="latitude2" required>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="longitude2" class="form-label">Longitude 2:</label>
+        <input type="number" id="longitude2" name="longitude2" class="form-control" [(ngModel)]="longitude2" required>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="defaultNotification" class="form-label">Default Notification:</label>
+    <input type="text" id="defaultNotification" name="defaultNotification" class="form-control" [(ngModel)]="defaultNotification" required>
+  </div>
+  <div class="form-group">
+  <div id="map" class="map"></div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Create Store</button>
+</form>

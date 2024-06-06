@@ -1,16 +1,29 @@
-FROM node:20 AS build-stage
-LABEL maintainer="Kazpost JSC"
+# Use official Node.js image as the base image
+FROM node:14 as build
+
+# Set the working directory
 WORKDIR /app
-COPY package.json ./
+
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
+
+# Install dependencies
 RUN npm install
+
+# Copy the rest of the application code to the working directory
 COPY . .
-RUN npm run build
 
-FROM nginx:1.25.3 as production
-COPY --from=build-stage /app/dist/admin-panel /usr/share/nginx/html
-RUN rm /etc/nginx/conf.d/default.conf
-COPY default.conf /etc/nginx/conf.d/
-RUN chown -R nginx:nginx /usr/share/nginx/html && chmod -R 755 /usr/share/nginx/html
+# Build the Angular application
+RUN npm run build --prod
+
+# Use NGINX to serve the application
+FROM nginx:alpine
+
+# Copy the built Angular application from the previous stage
+COPY --from=build /app/dist/your-angular-app-name /usr/share/nginx/html
+
+# Expose port 80
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
 
+# Start NGINX
+CMD ["nginx", "-g", "daemon off;"]

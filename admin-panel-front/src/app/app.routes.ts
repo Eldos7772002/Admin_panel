@@ -59,7 +59,10 @@ export const routes: Route[] = [
                 {path: 'forum/create-rule/:id', loadChildren: () => import('./pages/sms-gate/create-rule/create-rule.routes')},
                 {path: 'forum/create-notification/:id', loadChildren: () => import('./pages/sms-gate/create-notification/create-notification.routes')}
             ]},
-            {path: 'profile', loadChildren: () => import('../app/pages/profile/profile.routes')}
+            {path: 'profile', loadChildren: () => import('../app/pages/profile/profile.routes')},
+          {path: 'dashboard', loadChildren: () => import('../app/pages/dashboard/dashboard.routes')},
+          {path: 'outlet', loadChildren: () => import('../app/pages/dashboard/outlet/outlet.routes')},
+          {path: 'outlet/list', loadChildren: () => import('../app/pages/dashboard/outlet/list/list.routes')},
         ]
     }
 ];
